@@ -101,25 +101,67 @@ sequenceDiagram
 
 ---
 
-## 🔑 Seed User Logins
+## 💻 Portal Section Details & UI Layouts
 
-The backend automatically seeds a default user for each hospital role on its first boot. You can use the **Quick Test Access** clickable grid on the login screen to fill in these credentials instantly:
+### 1. Unified Secure Login Portal (`/login`)
+The gateway features a centralized, glassmorphic login panel. The user inputs their credentials, and the system decodes the JWT payload to direct them automatically to their respective role. To facilitate rapid validation and testing, an interactive **Quick Test Access** selector is embedded, allowing users to pre-fill credentials in one click.
 
-| Role Portal | Username | Password | Dashboard URL | Main Capabilities |
-| :--- | :--- | :--- | :--- | :--- |
-| **Admin** | `admin` | `admin123` | `/admin` | Manage user profiles (CRUD), toggle accounts, system metrics |
-| **Receptionist** | `reception` | `reception123` | `/reception` | Register patients, schedule appointments, cashier checkout |
-| **Medical Officer** | `mo` | `mo123` | `/mo` | Take triage vitals, forward patients to doctors |
-| **Doctor** | `doctor` | `doctor123` | `/doctor` | Write clinical diagnostics notes, prescriptions, request scans |
-| **Lab Technician** | `lab` | `lab123` | `/laboratory` | Review lab orders, submit blood/pathology results |
-| **Sonographer** | `ultrasound` | `ultrasound123` | `/ultrasound` | Log ultrasound findings, attach sonogram images |
+![Login Portal Interface](file:///C:/Users/sfkso/.gemini/antigravity-ide/brain/09027a0f-97a0-4b88-b45d-d2d5eaf43f14/login_page_mockup_1784280244908.png)
+
+---
+
+### 2. Hospital Reception Workspace (`/reception`)
+This module handles patient onboarding, scheduler planning, queue triage, and cashier invoice settlements:
+- **Patient Registry Tab**: Captures name, gender, contact details, date of birth (calculates age), and assigns an automatic sequential MRN.
+- **Appointments & Check-in Tab**: Assigns patients to doctors and checks them in. Checked-in patients are automatically routed to the Medical Officer's triage queue.
+- **Billing & Cashier Tab**: Tracks active consultation invoices, processes cash/card payments, and launches a printable receipt modal upon checkout.
+
+![Reception Workspace](file:///C:/Users/sfkso/.gemini/antigravity-ide/brain/09027a0f-97a0-4b88-b45d-d2d5eaf43f14/reception_desk_mockup_1784280275897.png)
+
+---
+
+### 3. Medical Officer Triage Desk (`/mo`)
+This portal allows Medical Officers (MOs) to manage patient check-in queues:
+- **Triage Queue**: Displays a list of checked-in patients waiting for vital logging.
+- **Metrics Log**: Forms to enter blood pressure (systolic/diastolic), pulse rate, body temperature, respiratory rate, SpO2, height, and weight.
+- **Triage Forward**: Click to submit metrics, which automatically transitions the patient status to `IN_PROGRESS` and routes them to the assigned doctor.
+
+---
+
+### 4. Doctor Consultation Desk (`/doctor`)
+The medical consultant's clinical desk connects history, vitals, checkup notes, prescriptions, and diagnostic orders:
+- **Triage Vitals Preview**: Inspects vital metrics logged by the MO.
+- **Consultation Records**: Fields to input chief complaints, clinical exam notes, and diagnosis.
+- **Prescription Pad Builder**: An interactive builder to add medications, dosages, timings, durations, and instructions dynamically.
+- **Diagnostics Order**: Order lab tests and ultrasound scans. Completed tests are displayed dynamically.
+- **Clinical History**: Toggle tab showing chronological previous consultation records and prescriptions for the selected patient.
+
+![Doctor Consultation Workbench](file:///C:/Users/sfkso/.gemini/antigravity-ide/brain/09027a0f-97a0-4b88-b45d-d2d5eaf43f14/doctor_desk_mockup_1784280259844.png)
+
+---
+
+### 5. Pathology Laboratory Portal (`/laboratory`)
+- **Pending Queue**: Displays test requests ordered by doctors (e.g. CBC, RBS).
+- **Findings Editor**: Lab technicians enter pathology reports and release completed test results back to the doctor.
+
+---
+
+### 6. Ultrasound Sonography Portal (`/ultrasound`)
+- **Ultrasound Scan Console**: View requested scans (e.g. Abdomen Scan, Pelvic US).
+- **Sonography Editor**: Enter observations, impressions, and select simulated diagnostic scan images to attach to the report.
+
+---
+
+### 7. Hospital Administration Panel (`/admin`)
+- **User Management**: Admins have total CRUD access to register staff accounts, change roles (Admin, Receptionist, MO, Doctor, Lab Tech, Sonographer), and activate/deactivate accounts.
+- **System Metrics**: Visual widgets displaying total staff, active doctors, and active sessions.
 
 ---
 
 ## 🚀 Setting Up the Application
 
 ### Prerequisites
-1. Install **Node.js** (v18+ recommended) and **npm**.
+1. Install **Node.js** (v18+) and **npm**.
 2. Run a local **MySQL** server instance on port `3306`.
 3. Create an empty database in MySQL:
    ```sql
