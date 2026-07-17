@@ -1,6 +1,6 @@
 # Medicflow - Hospital Management System (HMS)
 
-Medicflow is a premium, portfolio-grade **Hospital Management System (HMS)** built with a modern decoupled stack: a high-performance **NestJS backend** powered by **Sequelize ORM** and **MySQL**, and a sleek **Next.js frontend** utilising **React** and **Tailwind CSS**. 
+Medicflow is a premium, portfolio-grade **Hospital Management System (HMS)** built with a modern decoupled stack: a high-performance **NestJS backend** powered by **Sequelize ORM** and **MySQL**, and a sleek **Next.js frontend** utilising **React** and **Tailwind CSS**.
 
 The system implements Role-Based Access Control (RBAC) across six dedicated portals, syncing clinical departments in real-time.
 
@@ -104,63 +104,82 @@ sequenceDiagram
 ## 💻 Portal Section Details & UI Layouts
 
 ### 1. Unified Secure Login Portal (`/login`)
+
 The gateway features a centralized, glassmorphic login panel. The user inputs their credentials, and the system decodes the JWT payload to direct them automatically to their respective role. To facilitate rapid validation and testing, an interactive **Quick Test Access** selector is embedded, allowing users to pre-fill credentials in one click.
 
-![Login Portal Interface](file:///C:/Users/sfkso/.gemini/antigravity-ide/brain/09027a0f-97a0-4b88-b45d-d2d5eaf43f14/login_page_mockup_1784280244908.png)
+![Login Portal Interface](frontend/screenshots/login_page_mockup_1784280244908.png)
 
 ---
 
-### 2. Hospital Reception Workspace (`/reception`)
+### 2. Hospital Administration Panel (`/admin`)
+
+- **User Management**: Admins have total CRUD access to register staff accounts, change roles (Admin, Receptionist, MO, Doctor, Lab Tech, Sonographer), and activate/deactivate accounts.
+- **System Metrics**: Visual widgets displaying total staff, active doctors, and active sessions.
+
+![Admin Dashboard Portal](frontend/screenshots/admin_desk_mockup_1784280482688.png)
+
+---
+
+### 3. Hospital Reception Workspace (`/reception`)
+
 This module handles patient onboarding, scheduler planning, queue triage, and cashier invoice settlements:
+
 - **Patient Registry Tab**: Captures name, gender, contact details, date of birth (calculates age), and assigns an automatic sequential MRN.
 - **Appointments & Check-in Tab**: Assigns patients to doctors and checks them in. Checked-in patients are automatically routed to the Medical Officer's triage queue.
 - **Billing & Cashier Tab**: Tracks active consultation invoices, processes cash/card payments, and launches a printable receipt modal upon checkout.
 
-![Reception Workspace](file:///C:/Users/sfkso/.gemini/antigravity-ide/brain/09027a0f-97a0-4b88-b45d-d2d5eaf43f14/reception_desk_mockup_1784280275897.png)
+![Reception Workspace](frontend/screenshots/reception_desk_mockup_1784280275897.png)
 
 ---
 
-### 3. Medical Officer Triage Desk (`/mo`)
+### 4. Medical Officer Triage Desk (`/mo`)
+
 This portal allows Medical Officers (MOs) to manage patient check-in queues:
+
 - **Triage Queue**: Displays a list of checked-in patients waiting for vital logging.
 - **Metrics Log**: Forms to enter blood pressure (systolic/diastolic), pulse rate, body temperature, respiratory rate, SpO2, height, and weight.
 - **Triage Forward**: Click to submit metrics, which automatically transitions the patient status to `IN_PROGRESS` and routes them to the assigned doctor.
 
+![Medical Officer Triage Desk](frontend/screenshots/mo_triage_mockup_1784280497116.png)
+
 ---
 
-### 4. Doctor Consultation Desk (`/doctor`)
+### 5. Doctor Consultation Desk (`/doctor`)
+
 The medical consultant's clinical desk connects history, vitals, checkup notes, prescriptions, and diagnostic orders:
+
 - **Triage Vitals Preview**: Inspects vital metrics logged by the MO.
 - **Consultation Records**: Fields to input chief complaints, clinical exam notes, and diagnosis.
 - **Prescription Pad Builder**: An interactive builder to add medications, dosages, timings, durations, and instructions dynamically.
 - **Diagnostics Order**: Order lab tests and ultrasound scans. Completed tests are displayed dynamically.
 - **Clinical History**: Toggle tab showing chronological previous consultation records and prescriptions for the selected patient.
 
-![Doctor Consultation Workbench](file:///C:/Users/sfkso/.gemini/antigravity-ide/brain/09027a0f-97a0-4b88-b45d-d2d5eaf43f14/doctor_desk_mockup_1784280259844.png)
+![Doctor Consultation Workbench](frontend/screenshots/doctor_desk_mockup_1784280259844.png)
 
 ---
 
-### 5. Pathology Laboratory Portal (`/laboratory`)
+### 6. Pathology Laboratory Portal (`/laboratory`)
+
 - **Pending Queue**: Displays test requests ordered by doctors (e.g. CBC, RBS).
 - **Findings Editor**: Lab technicians enter pathology reports and release completed test results back to the doctor.
 
+![Pathology Laboratory Dashboard](frontend/screenshots/lab_desk_mockup_1784280512428.png)
+
 ---
 
-### 6. Ultrasound Sonography Portal (`/ultrasound`)
+### 7. Ultrasound Sonography Portal (`/ultrasound`)
+
 - **Ultrasound Scan Console**: View requested scans (e.g. Abdomen Scan, Pelvic US).
 - **Sonography Editor**: Enter observations, impressions, and select simulated diagnostic scan images to attach to the report.
 
----
-
-### 7. Hospital Administration Panel (`/admin`)
-- **User Management**: Admins have total CRUD access to register staff accounts, change roles (Admin, Receptionist, MO, Doctor, Lab Tech, Sonographer), and activate/deactivate accounts.
-- **System Metrics**: Visual widgets displaying total staff, active doctors, and active sessions.
+![Ultrasound Sonography Dashboard](frontend/screenshots/ultrasound_desk_mockup_1784280528995.png)
 
 ---
 
 ## 🚀 Setting Up the Application
 
 ### Prerequisites
+
 1. Install **Node.js** (v18+) and **npm**.
 2. Run a local **MySQL** server instance on port `3306`.
 3. Create an empty database in MySQL:
@@ -169,6 +188,7 @@ The medical consultant's clinical desk connects history, vitals, checkup notes, 
    ```
 
 ### 1. Backend Setup (NestJS)
+
 1. Go into the backend directory:
    ```bash
    cd backend
@@ -187,9 +207,10 @@ The medical consultant's clinical desk connects history, vitals, checkup notes, 
    ```bash
    npm run start:dev
    ```
-   *The database schema tables will automatically migrate and populate user seeds.*
+   _The database schema tables will automatically migrate and populate user seeds._
 
 ### 2. Frontend Setup (Next.js)
+
 1. Go into the frontend directory:
    ```bash
    cd frontend
