@@ -1,0 +1,71 @@
+# ==========================================
+# MEDICFLOW - GLOBAL ROOT GITIGNORE CONFIG
+# For Monorepo (Next.js + NestJS + MySQL)
+# ==========================================
+
+# ------------------------------------------
+# 1. Common / Dependency directories
+# ------------------------------------------
+**/node_modules/
+/.pnp
+.pnp.js
+
+# ------------------------------------------
+# 2. NestJS Backend Ignore Patterns
+# ------------------------------------------
+backend/dist/
+backend/dist-server/
+backend/dist-client/
+backend/.env
+backend/.env.development
+backend/.env.test
+backend/.env.production
+
+# ------------------------------------------
+# 3. Next.js Frontend Ignore Patterns
+# ------------------------------------------
+frontend/.next/
+frontend/out/
+frontend/build/
+frontend/.env*.local
+frontend/*.tsbuildinfo
+frontend/next-env.d.ts
+frontend/.vercel
+
+# ------------------------------------------
+# 4. Logs & Debug outputs
+# ------------------------------------------
+**/logs/
+**/*.log
+**/npm-debug.log*
+**/yarn-debug.log*
+**/yarn-error.log*
+**/lerna-debug.log*
+**/pnpm-debug.log*
+
+# ------------------------------------------
+# 5. OS & Temporary Files
+# ------------------------------------------
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ------------------------------------------
+# 6. IDEs and Editor configurations
+# ------------------------------------------
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+.history/
+
+# VSCode settings (Optional: un-ignore if shared team configs)
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
